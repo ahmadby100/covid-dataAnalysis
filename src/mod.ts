@@ -108,7 +108,7 @@ const main = async () => {
     const covid = new GitCovid();
     const content = await covid.getRepoDirectories(true);
     
-    console.log(`%c${content.contents.name}`, "color: blue")
+    console.log('\x1b[36m%s\x1b[0m',`${content.contents.name}\n---------------`)
     for (let i in content.contents.files) {
         console.log(content.contents.files[i].name)
     }
@@ -116,7 +116,7 @@ const main = async () => {
         let thisTab = "    ".repeat(recursed);
         for (let j in curr) {
             let i = Number(j)
-            console.log(`%c${thisTab.slice(0, -2)}${curr[i].name}`, "color: blue");
+            console.log('\x1b[36m%s\x1b[0m',`${thisTab.slice(0, -2)}${curr[i].name}`);
             if (curr[i].directories) {
                 recurseLog(curr[i].directories!, ++recursed);
             }
