@@ -1,0 +1,19 @@
+{
+  "name": "moh-covid19",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "tsc --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@octokit/types": "^6.34.0",
+    "@types/node": "^16.11.4"
+  },
+  "dependencies": {
+    "axios": "^0.23.0",
+    "dotenv": "^10.0.0"
+  }
+}
