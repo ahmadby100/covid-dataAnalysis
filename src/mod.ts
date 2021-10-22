@@ -13,10 +13,10 @@ class GitCovid {
     private repoUrl: string;
     private repo: string;
 
-    constructor() {
+    constructor(newRepo?: string) {
+        newRepo ? this.repo = newRepo : this.repo = "MoH-Malaysia/covid19-public";        
         this.baseUrl = "https://api.github.com";
         this.rawUrl = "https://raw.githubusercontent.com"
-        this.repo = "MoH-Malaysia/covid19-public";
         this.repoUrl = `${this.baseUrl}/repos/${this.repo}`;
         this.contentsUrl = `${this.baseUrl}/repos/${this.repo}/contents/`;
         
@@ -52,7 +52,7 @@ class GitCovid {
         let dir: Contents = {
             nested: false,
             contents: {
-                name: "covid19-public",
+                name: this.repo,
                 files: [],
             }
         };
@@ -105,6 +105,9 @@ class GitCovid {
 
 
 const main = async () => {
+    let user = "ahmadby100";
+    let repo = "lastspotify";
+    const alt = `${user}/${repo}`;
     const covid = new GitCovid();
     const content = await covid.getRepoDirectories(true);
     
@@ -117,16 +120,16 @@ const main = async () => {
         for (let j in curr) {
             let i = Number(j)
             console.log('\x1b[36m%s\x1b[0m',`${thisTab.slice(0, -2)}${curr[i].name}`);
-            if (curr[i].directories) {
-                recurseLog(curr[i].directories!, ++recursed);
-            }
             for (let l in curr[i].files) {
                 if (curr[i].files[l].name) {
                     console.log(`${thisTab}${curr[i].files[l].name}`)
                     // console.log(`${thisTab}  ${curr[i].files[l].url}`)
                 }
                 else 
-                    continue;
+                continue;
+            }
+            if (curr[i].directories) {
+                recurseLog(curr[i].directories!, ++recursed);
             }
             
         }
