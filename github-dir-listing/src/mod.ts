@@ -25,10 +25,10 @@ interface Directory {
 }
 // Types End
 
-class GitHubAPI {
+export default class GitHubAPI {
     
     private baseUrl: string;
-    private rawUrl: string;
+    // private rawUrl: string;
     private contentsUrl: string;
     private repoUrl: string;
     private repo: string;
@@ -36,7 +36,7 @@ class GitHubAPI {
     constructor(newRepo?: string) {
         newRepo ? this.repo = newRepo : this.repo = "MoH-Malaysia/covid19-public";        
         this.baseUrl = "https://api.github.com";
-        this.rawUrl = "https://raw.githubusercontent.com"
+        // this.rawUrl = "https://raw.githubusercontent.com"
         this.repoUrl = `${this.baseUrl}/repos/${this.repo}`;
         this.contentsUrl = `${this.baseUrl}/repos/${this.repo}/contents/`;
         
@@ -149,9 +149,9 @@ class GitHubAPI {
 
 
 const main = async () => {
-    let user = "ahmadby100";
-    let repo = "lastspotify";
-    const alt = `${user}/${repo}`;
+    // let user = "ahmadby100";
+    // let repo = "lastspotify";
+    // const alt = `${user}/${repo}`;
     const covid = new GitHubAPI();
     const content = await covid.getRepoDirectories(true);
     covid.logContents(content);
