@@ -28,12 +28,14 @@ module.exports = {
   rules: {
     "quotes": ["error", "double"],
     "require-jsdoc": "off",
-    "max-len": ["error", {"code": 200}],
+    "max-len": ["error", { "code": 200 }],
     "no-invalid-this": "off",
     "comma-dangle": "off",
     "guard-for-in": "off",
     "@typescript-eslint/no-non-null-assertion": "off",
-    "@typescript-eslint/no-explicit-any": "off"
+    "@typescript-eslint/no-explicit-any": "off",
+    "object-curly-spacing": ["error", "always"],
+    "camelcase": "off"
   },
 };
 
