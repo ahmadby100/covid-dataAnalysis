@@ -22,9 +22,11 @@
     "firebase-admin": "^9.8.0",
     "firebase-functions": "^3.14.1",
     "fs-extra": "^10.0.0",
+    "git-diff-parser": "^1.0.0",
     "mariadb": "^2.5.5"
   },
   "devDependencies": {
+    "@types/git-diff-parser": "^1.0.1",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "eslint": "^7.6.0",
