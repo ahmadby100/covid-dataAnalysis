@@ -11,33 +11,58 @@ const db = {
   port: process.env.DB_PORT
 };
 
-const pool = mariadb.createPool({
-  host: db.host,
-  user: db.user,
-  password: db.pass,
-  port: Number(db.port),
-  connectionLimit: 5,
-  acquireTimeout: 1200000
-});
+let pool: mariadb.Pool;
+
+const connectToDB = () => {
+  pool = mariadb.createPool({
+    host: db.host,
+    user: db.user,
+    password: db.pass,
+    port: Number(db.port),
+    connectionLimit: 5,
+    acquireTimeout: 1200// 000
+  });
+};
+
+export const closePool = () => {
+  if (pool) pool.end();
+  else console.log("No pool connection to close");
+};
 // const pool = mariadb.createConnection({
 //   host: db.host,
 //   user: db.user,
 //   password: db.pass,
 //   port: Number(db.port)
 // });
-
-
-export const callDB = async (query: string, next: (result: any) => void) => {
+export const executeBatch = async (query: string, values: any[], next: (result: any) => void) => {
+  if (!pool) connectToDB();
   let conn;
   try {
     conn = await pool.getConnection();
-    const response = await conn.query(query);
-    await conn.end();
+    const response = await conn.batch(query, values);
+    conn.release();
     next(response);
   } catch (err) {
     errorHandling(err, query);
   } finally {
-    if (conn) conn.release();
+    if (conn) conn.end();
+  }
+};
+
+export const callDB = async (query: string, next: (result: any) => void) => {
+  if (!pool) {
+    connectToDB();
+  }
+  let conn;
+  try {
+    conn = await pool.getConnection();
+    const response = await conn.query(query);
+    conn.release();
+    next(response);
+  } catch (err) {
+    errorHandling(err, query);
+  } finally {
+    if (conn) conn.end();
   }
 };
 
